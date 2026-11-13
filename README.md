@@ -7,7 +7,6 @@ A simple command-line app for tracking your spending. Expenses are saved to `exp
 ```
 ├── tracker.py       # the expense tracker app
 ├── expenses.json    # where your expenses are saved
-├── file.py          # Git practice file (not part of the app)
 └── README.md
 ```
 
