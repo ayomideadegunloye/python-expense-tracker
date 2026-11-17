@@ -57,22 +57,20 @@ def list_expenses():
 
 
 def total_spent():
-    """Return the total amount spent across all expenses.
-
-    TODO (Task 1): implement this function.
-    """
-    raise NotImplementedError("total_spent is not built yet")
-
+    """Return the total amount spent across all expenses."""
+    return sum(e["amount"] for e in load_expenses())
 
 def delete_expense(expense_id):
     """Delete the expense with the given id.
 
-    Return True if something was deleted, False if the id was not found.
-
-    TODO (Task 2): implement this function.
-    """
-    raise NotImplementedError("delete_expense is not built yet")
-
+    Return True if something was deleted, False if the id was not found."""
+    expenses = load_expenses()
+    remaining = [e for e in expenses if e["id"] != expense_id]
+    if len(remaining) == len(expenses):
+        return False
+    save_expenses(remaining)
+    return True
+    
 
 def build_parser():
     parser = argparse.ArgumentParser(description="Expense Tracker")
@@ -89,7 +87,6 @@ def build_parser():
     delete = sub.add_parser("delete", help="delete an expense by id")
     delete.add_argument("id", type=int)
 
-    sub.add_parser("calculate")
 
     return parser
 
@@ -122,9 +119,6 @@ def main():
                 print(f"Deleted #{args.id}")
             else:
                 print(f"No expense with id {args.id}")
-
-        elif args.command == "calculate":
-            print("This is the calculate argument")
 
     except NotImplementedError as err:
         print(f"Not built yet: {err}. Check the tasks in README.md")
